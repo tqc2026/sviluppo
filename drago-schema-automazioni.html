@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drago S.r.l. — Schema Automazioni AI</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; color: #222; }
+
+  .page { max-width: 1100px; margin: 0 auto; padding: 40px 30px; }
+
+  /* HEADER */
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 3px solid #c0392b; padding-bottom: 20px; }
+  .header-left h1 { font-size: 28px; font-weight: 700; color: #c0392b; }
+  .header-left h2 { font-size: 16px; font-weight: 400; color: #555; margin-top: 4px; }
+  .header-right { text-align: right; font-size: 12px; color: #888; }
+  .header-right strong { display: block; font-size: 13px; color: #444; }
+
+  /* SECTION */
+  .section { margin-bottom: 40px; }
+  .section-title { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #c0392b; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 1px solid #ddd; }
+
+  /* FASI OVERVIEW */
+  .fasi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .fase-card { background: #fff; border-radius: 8px; padding: 18px; border-top: 4px solid #c0392b; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .fase-card.alta { border-top-color: #c0392b; }
+  .fase-card.media { border-top-color: #e67e22; }
+  .fase-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; }
+  .fase-title { font-size: 14px; font-weight: 700; margin: 6px 0 10px; color: #222; }
+  .fase-items { font-size: 12px; color: #555; line-height: 1.7; }
+  .fase-items li { list-style: none; padding-left: 14px; position: relative; }
+  .fase-items li::before { content: '→'; position: absolute; left: 0; color: #c0392b; }
+  .fase-meta { margin-top: 12px; display: flex; justify-content: space-between; font-size: 11px; }
+  .fase-durata { color: #777; }
+  .fase-priorita { font-weight: 700; }
+  .fase-priorita.alta { color: #c0392b; }
+  .fase-priorita.media { color: #e67e22; }
+
+  /* FLOW DIAGRAM */
+  .flow-container { background: #fff; border-radius: 8px; padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .flow-title { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 20px; }
+
+  .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin-bottom: 20px; }
+  .flow-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; width: 100%; margin-bottom: 8px; }
+
+  .node { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .node-box { padding: 10px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; text-align: center; min-width: 110px; max-width: 130px; line-height: 1.3; }
+  .node-sub { font-size: 10px; color: #888; text-align: center; max-width: 120px; }
+
+  .node-box.trigger  { background: #fdecea; border: 2px solid #c0392b; color: #c0392b; }
+  .node-box.process  { background: #eaf0fb; border: 2px solid #2980b9; color: #2980b9; }
+  .node-box.ai       { background: #f0ebfa; border: 2px solid #8e44ad; color: #8e44ad; }
+  .node-box.action   { background: #eafaf1; border: 2px solid #27ae60; color: #27ae60; }
+  .node-box.storage  { background: #fef9e7; border: 2px solid #f39c12; color: #f39c12; }
+  .node-box.tool     { background: #f8f9fa; border: 2px solid #7f8c8d; color: #555; }
+
+  .arrow { font-size: 20px; color: #ccc; padding: 0 6px; margin-top: -18px; }
+
+  .flow-row { display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; }
+
+  /* BRANCH */
+  .branch-container { display: flex; flex-direction: column; gap: 8px; }
+  .branch-row { display: flex; align-items: center; gap: 6px; }
+  .branch-label { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+  .branch-label.caldo   { background: #fdecea; color: #c0392b; }
+  .branch-label.tiepido { background: #fef9e7; color: #e67e22; }
+  .branch-label.freddo  { background: #eaf0fb; color: #2980b9; }
+
+  /* STACK TABLE */
+  .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .stack-item { background: #fff; border-radius: 6px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); display: flex; flex-direction: column; gap: 4px; }
+  .stack-role { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #999; }
+  .stack-tool { font-size: 14px; font-weight: 700; color: #222; }
+  .stack-desc { font-size: 11px; color: #666; }
+  .stack-cost { font-size: 11px; font-weight: 600; color: #c0392b; margin-top: 4px; }
+
+  /* COSTI */
+  .costi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .costo-card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .costo-card h3 { font-size: 13px; font-weight: 700; color: #555; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .costo-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+  .costo-row:last-of-type { border-bottom: none; }
+  .costo-label { color: #444; }
+  .costo-val { font-weight: 600; color: #222; }
+  .costo-total { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 2px solid #c0392b; font-weight: 700; font-size: 14px; }
+  .costo-total span:last-child { color: #c0392b; }
+
+  /* DOMANDE */
+  .domande-list { display: flex; flex-direction: column; gap: 10px; }
+  .domanda-item { background: #fff; border-radius: 6px; padding: 14px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); display: flex; gap: 14px; align-items: flex-start; }
+  .domanda-num { background: #c0392b; color: white; font-weight: 700; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .domanda-text { font-size: 12px; color: #333; line-height: 1.5; }
+  .domanda-why { font-size: 11px; color: #888; margin-top: 3px; }
+
+  /* FOOTER */
+  .footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; display: flex; justify-content: space-between; font-size: 11px; color: #aaa; }
+
+  /* PRINT */
+  @media print {
+    body { background: white; }
+    .page { padding: 20px; }
+    .fase-card, .flow-container, .stack-item, .costo-card, .domanda-item { box-shadow: none; border: 1px solid #eee; }
+    .section { margin-bottom: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Schema Automazioni AI</h1>
+      <h2>Drago S.r.l. — Automazione Processi Commerciali e Operativi</h2>
+    </div>
+    <div class="header-right">
+      <strong>The Qube / TQC S.r.l.</strong>
+      theqube.it<br>
+      Maggio 2026 — v1.1
+    </div>
+  </div>
+
+  <!-- FASI OVERVIEW -->
+  <div class="section">
+    <div class="section-title">Piano di Realizzazione — 4 Fasi</div>
+    <div class="fasi-grid">
+      <div class="fase-card alta">
+        <div class="fase-num">Fase 1 · Sett. 1–4</div>
+        <div class="fase-title">Lead & Comunicazione</div>
+        <ul class="fase-items">
+          <li>Form lead su sito web</li>
+          <li>Qualifica AI automatica</li>
+          <li>Risposta WhatsApp &lt; 2 min</li>
+          <li>Reminder appuntamenti</li>
+        </ul>
+        <div class="fase-meta">
+          <span class="fase-durata">4 settimane</span>
+          <span class="fase-priorita alta">ALTA</span>
+        </div>
+      </div>
+      <div class="fase-card alta">
+        <div class="fase-num">Fase 2 · Sett. 5–10</div>
+        <div class="fase-title">Preventivazione</div>
+        <ul class="fase-items">
+          <li>Listino prezzi strutturato</li>
+          <li>Generazione PDF automatica</li>
+          <li>Invio WhatsApp + email</li>
+          <li>Tracking stato preventivo</li>
+        </ul>
+        <div class="fase-meta">
+          <span class="fase-durata">6 settimane</span>
+          <span class="fase-priorita alta">ALTA</span>
+        </div>
+      </div>
+      <div class="fase-card media">
+        <div class="fase-num">Fase 3 · Sett. 11–16</div>
+        <div class="fase-title">Integrazioni Gestionali</div>
+        <ul class="fase-items">
+          <li>Integrazione ADA Metisoft</li>
+          <li>Webservice Taxi (fatture)</li>
+          <li>Registro interventi digitale</li>
+          <li>Fatturazione automatica</li>
+        </ul>
+        <div class="fase-meta">
+          <span class="fase-durata">6 settimane</span>
+          <span class="fase-priorita media">MEDIA</span>
+        </div>
+      </div>
+      <div class="fase-card media">
+        <div class="fase-num">Fase 4 · Sett. 17–20</div>
+        <div class="fase-title">Feedback & Social</div>
+        <ul class="fase-items">
+          <li>Chiamate AI post-intervento</li>
+          <li>Raccolta recensioni Google</li>
+          <li>Campagne stagionali</li>
+          <li>Post social automatici</li>
+        </ul>
+        <div class="fase-meta">
+          <span class="fase-durata">4 settimane</span>
+          <span class="fase-priorita media">MEDIA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOW FASE 1 -->
+  <div class="section">
+    <div class="section-title">Flusso Dettagliato — Fase 1: Lead & Comunicazione</div>
+    <div class="flow-container">
+
+      <div class="flow-title">1.1 · Qualifica Lead Automatica</div>
+      <div class="flow-row">
+        <div class="node">
+          <div class="node-box trigger">Cliente compila form</div>
+          <div class="node-sub">Sito Duda</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box process">Webhook n8n</div>
+          <div class="node-sub">Riceve i dati del lead</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box ai">Claude AI</div>
+          <div class="node-sub">Qualifica: caldo / tiepido / freddo</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="branch-container">
+          <div class="branch-row">
+            <span class="branch-label caldo">CALDO</span>
+            <div class="node"><div class="node-box action">WhatsApp immediato + priorità chiamata</div></div>
+          </div>
+          <div class="branch-row">
+            <span class="branch-label tiepido">TIEPIDO</span>
+            <div class="node"><div class="node-box action">WhatsApp + follow-up 24h</div></div>
+          </div>
+          <div class="branch-row">
+            <span class="branch-label freddo">FREDDO</span>
+            <div class="node"><div class="node-box action">Email nurturing automatica</div></div>
+          </div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box storage">Airtable / Sheets</div>
+          <div class="node-sub">Salva lead + stato</div>
+        </div>
+      </div>
+
+      <br>
+      <div class="flow-title">1.2 · Reminder Appuntamenti</div>
+      <div class="flow-row">
+        <div class="node">
+          <div class="node-box storage">ADA Metisoft / Google Cal</div>
+          <div class="node-sub">Agenda tecnici</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box process">n8n scheduler</div>
+          <div class="node-sub">Controlla appuntamenti del giorno dopo</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box ai">Claude AI</div>
+          <div class="node-sub">Genera messaggio personalizzato</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box action">WhatsApp al cliente</div>
+          <div class="node-sub">Conferma o disdetta con un tap</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box action">Notifica al tecnico</div>
+          <div class="node-sub">Aggiorna agenda automaticamente</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOW FASE 2 -->
+  <div class="section">
+    <div class="section-title">Flusso Dettagliato — Fase 2: Preventivazione Automatica</div>
+    <div class="flow-container">
+      <div class="flow-title">2.1 · Generazione Preventivo</div>
+      <div class="flow-row">
+        <div class="node">
+          <div class="node-box trigger">Tecnico compila form mobile</div>
+          <div class="node-sub">Tipo intervento + materiali</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box process">n8n</div>
+          <div class="node-sub">Recupera prezzi da listino</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box storage">Airtable Listino</div>
+          <div class="node-sub">Prezzi per servizio</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box ai">Claude AI</div>
+          <div class="node-sub">Redige testo preventivo professionale</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box tool">Documint</div>
+          <div class="node-sub">Genera PDF branded</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box action">WhatsApp + Email al cliente</div>
+          <div class="node-sub">PDF + link per accettare/rifiutare</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOW FASE 4 -->
+  <div class="section">
+    <div class="section-title">Flusso Dettagliato — Fase 4: Feedback & Recensioni</div>
+    <div class="flow-container">
+      <div class="flow-title">4.1 · Chiamata AI post-intervento</div>
+      <div class="flow-row">
+        <div class="node">
+          <div class="node-box trigger">Intervento chiuso in ADA</div>
+          <div class="node-sub">Trigger automatico</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box process">n8n attende 72h</div>
+          <div class="node-sub">Timer post-chiusura</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box ai">Bland AI / Vapi</div>
+          <div class="node-sub">Chiama il cliente, raccoglie feedback vocale</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <div class="node-box ai">Claude AI</div>
+          <div class="node-sub">Analizza trascrizione: positivo / negativo</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="branch-container">
+          <div class="branch-row">
+            <span class="branch-label caldo">POSITIVO</span>
+            <div class="node"><div class="node-box action">WhatsApp link recensione Google</div></div>
+          </div>
+          <div class="branch-row">
+            <span class="branch-label freddo">NEGATIVO</span>
+            <div class="node"><div class="node-box action">Alert interno → Daniele richiama</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STACK TECNOLOGICO -->
+  <div class="section">
+    <div class="section-title">Stack Tecnologico</div>
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-role">Orchestrazione</div>
+        <div class="stack-tool">n8n Cloud</div>
+        <div class="stack-desc">Motore centrale di tutti i workflow automatici</div>
+        <div class="stack-cost">€20–50/mese</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-role">AI / LLM</div>
+        <div class="stack-tool">Claude API (Anthropic)</div>
+        <div class="stack-desc">Qualifica lead, messaggi, preventivi, analisi feedback</div>
+        <div class="stack-cost">€30–100/mese</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-role">Messaggistica</div>
+        <div class="stack-tool">WhatsApp Business API</div>
+        <div class="stack-desc">Comunicazioni automatiche con i clienti via Meta</div>
+        <div class="stack-cost">€80–150/mese</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-role">Voce AI</div>
+        <div class="stack-tool">Bland AI / Vapi</div>
+        <div class="stack-desc">Chiamate automatiche post-intervento per feedback</div>
+        <div class="stack-cost">€30–80/mese</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-role">Gestionale (esistente)</div>
+        <div class="stack-tool">ADA Metisoft</div>
+        <div class="stack-desc">Interventi, agenda tecnici, magazzino</div>
+        <div class="stack-cost">Già pagato</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-role">Fatturazione (esistente)</div>
+        <div class="stack-tool">Taxi — Invest & Engineering</div>
+        <div class="stack-desc">Emissione fatture via webservice documentato</div>
+        <div class="stack-cost">Già pagato</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-role">Database Lead</div>
+        <div class="stack-tool">Airtable / Google Sheets</div>
+        <div class="stack-desc">Lead, listino prezzi, tracking preventivi</div>
+        <div class="stack-cost">€0–20/mese</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-role">PDF Preventivi</div>
+        <div class="stack-tool">Documint</div>
+        <div class="stack-desc">Generazione PDF branded da template</div>
+        <div class="stack-cost">€19–39/mese</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-role">Email</div>
+        <div class="stack-tool">Gmail → Google Workspace</div>
+        <div class="stack-desc">Comunicazioni formali su dominio aziendale</div>
+        <div class="stack-cost">€6–12/mese</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STIMA ECONOMICA -->
+  <div class="section">
+    <div class="section-title">Stima Economica</div>
+    <div class="costi-grid">
+      <div class="costo-card">
+        <h3>Setup — Una Tantum</h3>
+        <div class="costo-row"><span class="costo-label">Infrastruttura (n8n, DB, webhook, test)</span><span class="costo-val">€1.200–1.800</span></div>
+        <div class="costo-row"><span class="costo-label">Fase 1 — Lead + WhatsApp + AI + Reminder</span><span class="costo-val">€1.600–2.400</span></div>
+        <div class="costo-row"><span class="costo-label">Fase 2 — Preventivazione automatica + PDF</span><span class="costo-val">€1.900–3.000</span></div>
+        <div class="costo-row"><span class="costo-label">Fase 3 — ADA + Taxi + Fatturazione</span><span class="costo-val">€1.300–2.400</span></div>
+        <div class="costo-row"><span class="costo-label">Fase 4 — Feedback AI + Social</span><span class="costo-val">€1.100–1.700</span></div>
+        <div class="costo-total"><span>TOTALE SETUP</span><span>€7.100–11.300</span></div>
+      </div>
+      <div class="costo-card">
+        <h3>Canone Mensile — Gestione e Tool</h3>
+        <div class="costo-row"><span class="costo-label">Manutenzione workflow + monitoring</span><span class="costo-val">€300–500</span></div>
+        <div class="costo-row"><span class="costo-label">n8n Cloud</span><span class="costo-val">€20–50</span></div>
+        <div class="costo-row"><span class="costo-label">Claude AI API</span><span class="costo-val">€30–100</span></div>
+        <div class="costo-row"><span class="costo-label">WhatsApp Business API</span><span class="costo-val">€80–150</span></div>
+        <div class="costo-row"><span class="costo-label">Voce AI (Bland AI / Vapi)</span><span class="costo-val">€30–80</span></div>
+        <div class="costo-row"><span class="costo-label">Database + PDF + Email</span><span class="costo-val">€25–71</span></div>
+        <div class="costo-total"><span>TOTALE MENSILE</span><span>€485–961</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMANDE AL CLIENTE -->
+  <div class="section">
+    <div class="section-title">5 Domande per Chiudere il Preventivo</div>
+    <div class="domande-list">
+      <div class="domanda-item">
+        <div class="domanda-num">1</div>
+        <div>
+          <div class="domanda-text"><strong>ADA Metisoft:</strong> lo usate per la gestione completa (agenda tecnici, interventi, fatturazione) o solo per una parte? Cosa fate ancora manualmente?</div>
+          <div class="domanda-why">Impatto: ±€3.000 sul preventivo finale</div>
+        </div>
+      </div>
+      <div class="domanda-item">
+        <div class="domanda-num">2</div>
+        <div>
+          <div class="domanda-text"><strong>ADA ha API o webhook?</strong> Possiamo contattare Metisoft insieme a voi per richiedere la documentazione tecnica?</div>
+          <div class="domanda-why">Impatto: ±2 settimane di lavoro sull'integrazione</div>
+        </div>
+      </div>
+      <div class="domanda-item">
+        <div class="domanda-num">3</div>
+        <div>
+          <div class="domanda-text"><strong>Avete un listino prezzi strutturato?</strong> (es. manutenzione caldaia = €X, sostituzione bruciatore = €Y) O i prezzi vengono definiti caso per caso?</div>
+          <div class="domanda-why">Prerequisito assoluto per la preventivazione automatica — se non esiste va costruito: +1–2 settimane</div>
+        </div>
+      </div>
+      <div class="domanda-item">
+        <div class="domanda-num">4</div>
+        <div>
+          <div class="domanda-text"><strong>Il WhatsApp +39 329 9540574</strong> è un WhatsApp Business App o avete già accesso all'API ufficiale Meta? Avete un account Meta Business Manager?</div>
+          <div class="domanda-why">L'automazione WhatsApp richiede l'API Meta ufficiale — setup 1–2 settimane se non ce l'hanno</div>
+        </div>
+      </div>
+      <div class="domanda-item">
+        <div class="domanda-num">5</div>
+        <div>
+          <div class="domanda-text"><strong>Keplero:</strong> quante chiamate fuori orario gestisce al mese? Siete soddisfatti o aperti a valutare alternative più integrabili?</div>
+          <div class="domanda-why">Se non ha API aperte va sostituito con Bland AI o Vapi per i feedback post-intervento</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>Documento riservato — The Qube / TQC S.r.l. · theqube.it</span>
+    <span>Drago S.r.l. — Analisi Fattibilità v1.1 — Maggio 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
