@@ -3,105 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Drago S.r.l. — Schema Automazioni AI</title>
+<title>Drago S.r.l. — Schema Automazioni AI v1.2</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; color: #222; }
-
-  .page { max-width: 1100px; margin: 0 auto; padding: 40px 30px; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f4f4; color: #222; font-size: 13px; }
+  .page { max-width: 1120px; margin: 0 auto; padding: 40px 30px; }
 
   /* HEADER */
-  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 3px solid #c0392b; padding-bottom: 20px; }
-  .header-left h1 { font-size: 28px; font-weight: 700; color: #c0392b; }
-  .header-left h2 { font-size: 16px; font-weight: 400; color: #555; margin-top: 4px; }
-  .header-right { text-align: right; font-size: 12px; color: #888; }
-  .header-right strong { display: block; font-size: 13px; color: #444; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; border-bottom: 3px solid #c0392b; padding-bottom: 18px; }
+  .header-left h1 { font-size: 26px; font-weight: 700; color: #c0392b; }
+  .header-left h2 { font-size: 14px; font-weight: 400; color: #555; margin-top: 4px; }
+  .header-right { text-align: right; font-size: 11px; color: #888; line-height: 1.6; }
+  .header-right strong { display: block; font-size: 13px; color: #333; }
+  .version-badge { display: inline-block; background: #c0392b; color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-top: 4px; }
 
   /* SECTION */
   .section { margin-bottom: 40px; }
-  .section-title { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #c0392b; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 1px solid #ddd; }
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #c0392b; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid #ddd; }
 
-  /* FASI OVERVIEW */
-  .fasi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .fase-card { background: #fff; border-radius: 8px; padding: 18px; border-top: 4px solid #c0392b; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .fase-card.alta { border-top-color: #c0392b; }
-  .fase-card.media { border-top-color: #e67e22; }
-  .fase-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; }
-  .fase-title { font-size: 14px; font-weight: 700; margin: 6px 0 10px; color: #222; }
-  .fase-items { font-size: 12px; color: #555; line-height: 1.7; }
-  .fase-items li { list-style: none; padding-left: 14px; position: relative; }
-  .fase-items li::before { content: '→'; position: absolute; left: 0; color: #c0392b; }
-  .fase-meta { margin-top: 12px; display: flex; justify-content: space-between; font-size: 11px; }
-  .fase-durata { color: #777; }
-  .fase-priorita { font-weight: 700; }
-  .fase-priorita.alta { color: #c0392b; }
-  .fase-priorita.media { color: #e67e22; }
+  /* ALERT BOX */
+  .alert { border-radius: 6px; padding: 14px 18px; margin-bottom: 20px; font-size: 12px; line-height: 1.6; }
+  .alert.info { background: #eaf4fb; border-left: 4px solid #2980b9; }
+  .alert.warning { background: #fef9e7; border-left: 4px solid #f39c12; }
+  .alert.success { background: #eafaf1; border-left: 4px solid #27ae60; }
+  .alert strong { display: block; margin-bottom: 4px; font-size: 12px; }
 
-  /* FLOW DIAGRAM */
-  .flow-container { background: #fff; border-radius: 8px; padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .flow-title { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 20px; }
+  /* FEASIBILITY CARDS */
+  .feasibility-grid { display: flex; flex-direction: column; gap: 16px; }
+  .feas-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .feas-header { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-bottom: 1px solid #f0f0f0; }
+  .feas-badge { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+  .feas-badge.verde   { background: #eafaf1; color: #27ae60; border: 1px solid #a9dfbf; }
+  .feas-badge.giallo  { background: #fef9e7; color: #d68910; border: 1px solid #f9e79f; }
+  .feas-badge.arancio { background: #fef5ec; color: #ca6f1e; border: 1px solid #fad7a0; }
+  .feas-title { font-size: 14px; font-weight: 700; color: #222; }
+  .feas-subtitle { font-size: 11px; color: #888; margin-top: 2px; }
+  .feas-fase { margin-left: auto; font-size: 10px; font-weight: 700; color: #aaa; white-space: nowrap; }
+  .feas-body { padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .feas-col h4 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #aaa; margin-bottom: 8px; }
+  .feas-col ul { list-style: none; }
+  .feas-col ul li { font-size: 11px; color: #444; padding: 3px 0 3px 14px; position: relative; line-height: 1.4; border-bottom: 1px solid #f5f5f5; }
+  .feas-col ul li:last-child { border-bottom: none; }
+  .feas-col ul li::before { content: '·'; position: absolute; left: 4px; color: #bbb; }
+  .feas-col ul li.ok::before    { content: '✓'; color: #27ae60; font-size: 10px; }
+  .feas-col ul li.warn::before  { content: '⚠'; color: #e67e22; font-size: 10px; }
+  .feas-col ul li.block::before { content: '✗'; color: #c0392b; font-size: 10px; }
+  .feas-col ul li.need::before  { content: '→'; color: #2980b9; font-size: 10px; }
 
-  .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin-bottom: 20px; }
-  .flow-label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; width: 100%; margin-bottom: 8px; }
+  /* CLIENT ANSWERS */
+  .answers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .answer-card { background: #fff; border-radius: 6px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .answer-q { font-size: 11px; color: #888; margin-bottom: 6px; }
+  .answer-a { font-size: 13px; font-weight: 600; color: #222; margin-bottom: 8px; }
+  .answer-impact { font-size: 11px; color: #555; padding: 6px 10px; background: #f8f9fa; border-radius: 4px; border-left: 3px solid #c0392b; }
 
-  .node { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .node-box { padding: 10px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; text-align: center; min-width: 110px; max-width: 130px; line-height: 1.3; }
-  .node-sub { font-size: 10px; color: #888; text-align: center; max-width: 120px; }
-
+  /* FLOW */
+  .flow-container { background: #fff; border-radius: 8px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 14px; }
+  .flow-title { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 16px; }
+  .flow-row { display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .node { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .node-box { padding: 9px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; text-align: center; min-width: 100px; max-width: 130px; line-height: 1.3; }
+  .node-sub { font-size: 9px; color: #999; text-align: center; max-width: 120px; }
   .node-box.trigger  { background: #fdecea; border: 2px solid #c0392b; color: #c0392b; }
   .node-box.process  { background: #eaf0fb; border: 2px solid #2980b9; color: #2980b9; }
   .node-box.ai       { background: #f0ebfa; border: 2px solid #8e44ad; color: #8e44ad; }
   .node-box.action   { background: #eafaf1; border: 2px solid #27ae60; color: #27ae60; }
   .node-box.storage  { background: #fef9e7; border: 2px solid #f39c12; color: #f39c12; }
   .node-box.tool     { background: #f8f9fa; border: 2px solid #7f8c8d; color: #555; }
-
-  .arrow { font-size: 20px; color: #ccc; padding: 0 6px; margin-top: -18px; }
-
-  .flow-row { display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; }
-
-  /* BRANCH */
-  .branch-container { display: flex; flex-direction: column; gap: 8px; }
+  .node-box.pending  { background: #fef5ec; border: 2px dashed #e67e22; color: #ca6f1e; }
+  .arrow { font-size: 18px; color: #ccc; padding: 0 4px; margin-top: -16px; }
+  .branch-container { display: flex; flex-direction: column; gap: 6px; }
   .branch-row { display: flex; align-items: center; gap: 6px; }
-  .branch-label { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+  .branch-label { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 10px; white-space: nowrap; }
   .branch-label.caldo   { background: #fdecea; color: #c0392b; }
   .branch-label.tiepido { background: #fef9e7; color: #e67e22; }
   .branch-label.freddo  { background: #eaf0fb; color: #2980b9; }
+  .branch-label.pos { background: #eafaf1; color: #27ae60; }
+  .branch-label.neg { background: #fdecea; color: #c0392b; }
 
-  /* STACK TABLE */
+  /* STACK */
   .stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .stack-item { background: #fff; border-radius: 6px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); display: flex; flex-direction: column; gap: 4px; }
-  .stack-role { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #999; }
-  .stack-tool { font-size: 14px; font-weight: 700; color: #222; }
-  .stack-desc { font-size: 11px; color: #666; }
-  .stack-cost { font-size: 11px; font-weight: 600; color: #c0392b; margin-top: 4px; }
+  .stack-item { background: #fff; border-radius: 6px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); }
+  .stack-role { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #bbb; }
+  .stack-tool { font-size: 13px; font-weight: 700; color: #222; margin: 3px 0; }
+  .stack-desc { font-size: 11px; color: #666; line-height: 1.4; }
+  .stack-cost { font-size: 11px; font-weight: 600; color: #c0392b; margin-top: 6px; }
+  .stack-status { font-size: 10px; margin-top: 4px; }
+  .stack-status.ok   { color: #27ae60; }
+  .stack-status.todo { color: #e67e22; }
+
+  /* FASI */
+  .fasi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .fase-card { background: #fff; border-radius: 8px; padding: 16px; border-top: 4px solid #ccc; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .fase-card.alta  { border-top-color: #c0392b; }
+  .fase-card.media { border-top-color: #e67e22; }
+  .fase-num   { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; }
+  .fase-title { font-size: 13px; font-weight: 700; margin: 6px 0 10px; color: #222; }
+  .fase-items { font-size: 11px; color: #555; line-height: 1.7; }
+  .fase-items li { list-style: none; padding-left: 14px; position: relative; }
+  .fase-items li::before { content: '→'; position: absolute; left: 0; color: #c0392b; }
+  .fase-meta { margin-top: 12px; display: flex; justify-content: space-between; font-size: 10px; }
+  .fase-priorita { font-weight: 700; }
+  .fase-priorita.alta  { color: #c0392b; }
+  .fase-priorita.media { color: #e67e22; }
 
   /* COSTI */
-  .costi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .costo-card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .costo-card h3 { font-size: 13px; font-weight: 700; color: #555; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .costo-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+  .costi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .costo-card { background: #fff; border-radius: 8px; padding: 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .costo-card h3 { font-size: 11px; font-weight: 700; color: #777; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .costo-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f5f5f5; font-size: 11px; }
   .costo-row:last-of-type { border-bottom: none; }
   .costo-label { color: #444; }
   .costo-val { font-weight: 600; color: #222; }
-  .costo-total { display: flex; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 2px solid #c0392b; font-weight: 700; font-size: 14px; }
+  .costo-val.new { color: #e67e22; }
+  .costo-total { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 2px solid #c0392b; font-weight: 700; font-size: 13px; }
   .costo-total span:last-child { color: #c0392b; }
 
-  /* DOMANDE */
-  .domande-list { display: flex; flex-direction: column; gap: 10px; }
-  .domanda-item { background: #fff; border-radius: 6px; padding: 14px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); display: flex; gap: 14px; align-items: flex-start; }
-  .domanda-num { background: #c0392b; color: white; font-weight: 700; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .domanda-text { font-size: 12px; color: #333; line-height: 1.5; }
-  .domanda-why { font-size: 11px; color: #888; margin-top: 3px; }
+  /* NEXT STEPS */
+  .steps-list { display: flex; flex-direction: column; gap: 10px; }
+  .step-item { background: #fff; border-radius: 6px; padding: 14px 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); display: flex; gap: 14px; align-items: flex-start; }
+  .step-num { background: #c0392b; color: white; font-weight: 700; font-size: 11px; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-who { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: #f0f0f0; color: #666; white-space: nowrap; margin-top: 2px; }
+  .step-text { font-size: 12px; color: #333; line-height: 1.5; }
+  .step-urgency { font-size: 10px; font-weight: 700; }
+  .step-urgency.high { color: #c0392b; }
+  .step-urgency.med  { color: #e67e22; }
 
   /* FOOTER */
-  .footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; display: flex; justify-content: space-between; font-size: 11px; color: #aaa; }
+  .footer { margin-top: 50px; padding-top: 16px; border-top: 1px solid #ddd; display: flex; justify-content: space-between; font-size: 10px; color: #bbb; }
 
-  /* PRINT */
   @media print {
     body { background: white; }
-    .page { padding: 20px; }
-    .fase-card, .flow-container, .stack-item, .costo-card, .domanda-item { box-shadow: none; border: 1px solid #eee; }
-    .section { margin-bottom: 28px; }
+    .page { padding: 16px; }
+    .feas-card, .flow-container, .stack-item, .costo-card, .step-item, .answer-card { box-shadow: none; border: 1px solid #eee; }
   }
 </style>
 </head>
@@ -111,17 +145,422 @@
   <!-- HEADER -->
   <div class="header">
     <div class="header-left">
-      <h1>Schema Automazioni AI</h1>
-      <h2>Drago S.r.l. — Automazione Processi Commerciali e Operativi</h2>
+      <h1>Schema Automazioni AI — Analisi Aggiornata</h1>
+      <h2>Drago S.r.l., Bari — Automazione Processi Commerciali e Operativi</h2>
     </div>
     <div class="header-right">
       <strong>The Qube / TQC S.r.l.</strong>
       theqube.it<br>
-      Maggio 2026 — v1.1
+      Maggio 2026
+      <span class="version-badge">v1.2 — post risposte cliente</span>
     </div>
   </div>
 
-  <!-- FASI OVERVIEW -->
+  <!-- RISPOSTE CLIENTE -->
+  <div class="section">
+    <div class="section-title">Risposte Cliente — Daniele Piepoli</div>
+    <div class="answers-grid">
+      <div class="answer-card">
+        <div class="answer-q">1. Come si chiama il CRM e supporta integrazioni?</div>
+        <div class="answer-a">ADA Metisoft (ada.metisoft.it)</div>
+        <div class="answer-impact">Piattaforma WordPress-based — possibile REST API. Da verificare con Metisoft. Impatto alto sull'architettura Fase 3.</div>
+      </div>
+      <div class="answer-card">
+        <div class="answer-q">2. WhatsApp: Business App o API Meta? Meta Business Manager?</div>
+        <div class="answer-a">WhatsApp Business normale — nessun Meta Business Manager</div>
+        <div class="answer-impact">Setup da zero: creazione BM + verifica numero + approvazione Meta (1–2 settimane). +€300–500 setup una tantum.</div>
+      </div>
+      <div class="answer-card">
+        <div class="answer-q">3. Taxi: usato per fatturazione o anche preventivi?</div>
+        <div class="answer-a">Solo fatturazione — referente tecnico disponibile</div>
+        <div class="answer-impact">Preventivi interamente custom (Airtable + Documint). Taxi usato solo in Fase 3 per emissione fattura automatica.</div>
+      </div>
+      <div class="answer-card">
+        <div class="answer-q">4. Listino prezzi strutturato?</div>
+        <div class="answer-a">Sì, su Excel — ma i prezzi variano per lavoro</div>
+        <div class="answer-impact">Listino base importabile in Airtable. Preventivo AI con approvazione tecnico prima dell'invio. Nessun blocco.</div>
+      </div>
+      <div class="answer-card" style="grid-column: 1 / -1;">
+        <div class="answer-q">5. Accesso sito web dragocaldaiebari.com?</div>
+        <div class="answer-a">Accesso diretto — ma il sito migrerà a dragogroup.it</div>
+        <div class="answer-impact">CRITICO: verificare tempistiche migrazione. Se dragogroup.it è imminente, costruiamo il form lead direttamente sul nuovo sito e saltiamo dragocaldaiebari.com. Da chiarire in call.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FATTIBILITÀ PUNTO PER PUNTO -->
+  <div class="section">
+    <div class="section-title">Fattibilità — Analisi Punto per Punto</div>
+
+    <div class="alert warning">
+      <strong>Legenda semafori</strong>
+      🟢 Verde = fattibile subito, nessun blocco &nbsp;|&nbsp; 🟡 Giallo = fattibile con prerequisiti da completare &nbsp;|&nbsp; 🟠 Arancio = fattibile ma dipende da risposta tecnica esterna (ADA API)
+    </div>
+
+    <div class="feasibility-grid">
+
+      <!-- 1. LEAD QUALIFICA -->
+      <div class="feas-card">
+        <div class="feas-header">
+          <span class="feas-badge giallo">🟡 Fattibile con prerequisiti</span>
+          <div>
+            <div class="feas-title">1. Gestione Lead e Qualifica Automatica</div>
+            <div class="feas-subtitle">Form sito → AI qualifica → risposta WhatsApp entro 2 min → CRM</div>
+          </div>
+          <div class="feas-fase">Fase 1 · Sett. 1–4</div>
+        </div>
+        <div class="feas-body">
+          <div class="feas-col">
+            <h4>Stato attuale</h4>
+            <ul>
+              <li class="warn">Nessun form lead sul sito oggi</li>
+              <li class="warn">Sito in migrazione a dragogroup.it</li>
+              <li class="warn">WhatsApp Business App (non API)</li>
+              <li class="ok">Email Gmail disponibile</li>
+              <li class="ok">n8n orchestratore pronto</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Cosa ci serve</h4>
+            <ul>
+              <li class="need">Chiarire tempistiche dragogroup.it</li>
+              <li class="need">Creare Meta Business Manager</li>
+              <li class="need">Richiedere API ufficiale Meta per il numero +39 329 9540574</li>
+              <li class="need">Accesso backend sito (confermato)</li>
+              <li class="need">Aggiungere form lead con webhook</li>
+              <li class="need">Setup Airtable / Google Sheets per CRM lead</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Rischi e note</h4>
+            <ul>
+              <li class="warn">Approvazione Meta: 1–2 settimane — non controllabile</li>
+              <li class="warn">Se sito migra a dragogroup.it durante i lavori, il form va rifatto</li>
+              <li class="ok">Logica AI e n8n costruibili in parallelo all'approvazione Meta</li>
+              <li class="ok">In attesa dell'API, risposta automatica via email come fallback</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. APPUNTAMENTI -->
+      <div class="feas-card">
+        <div class="feas-header">
+          <span class="feas-badge arancio">🟠 Dipende da API ADA</span>
+          <div>
+            <div class="feas-title">2. Appuntamenti, Promemoria e Gestione Tecnici</div>
+            <div class="feas-subtitle">Reminder giornalieri automatici → conferma via WhatsApp → assegnazione tecnico</div>
+          </div>
+          <div class="feas-fase">Fase 1 · Sett. 1–4</div>
+        </div>
+        <div class="feas-body">
+          <div class="feas-col">
+            <h4>Stato attuale</h4>
+            <ul>
+              <li class="warn">ADA Metisoft gestisce l'agenda tecnici</li>
+              <li class="warn">Nessun reminder automatico verso il cliente</li>
+              <li class="warn">Tutto passa da telefono manuale</li>
+              <li class="warn">ADA è WordPress-based — API da verificare</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Cosa ci serve</h4>
+            <ul>
+              <li class="need">Contattare Metisoft: ADA ha REST API o webhook?</li>
+              <li class="need">Se ADA ha API → n8n legge agenda e invia reminder WhatsApp</li>
+              <li class="need">Se ADA non ha API → Google Calendar come layer intermedio</li>
+              <li class="need">WhatsApp Business API Meta (condiviso con modulo 1)</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Rischi e note</h4>
+            <ul>
+              <li class="warn">Se ADA non espone API: +2 settimane per layer Google Calendar</li>
+              <li class="warn">I tecnici devono tenere l'agenda aggiornata su ADA (processo umano)</li>
+              <li class="ok">Google Calendar come fallback è rapido da implementare</li>
+              <li class="ok">Reminder WhatsApp funziona in entrambi gli scenari</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. PREVENTIVAZIONE -->
+      <div class="feas-card">
+        <div class="feas-header">
+          <span class="feas-badge giallo">🟡 Fattibile — listino da strutturare</span>
+          <div>
+            <div class="feas-title">3. Preventivazione Automatica</div>
+            <div class="feas-subtitle">Form mobile tecnico → listino Airtable → PDF branded → WhatsApp + email + tracking</div>
+          </div>
+          <div class="feas-fase">Fase 2 · Sett. 5–10</div>
+        </div>
+        <div class="feas-body">
+          <div class="feas-col">
+            <h4>Stato attuale</h4>
+            <ul>
+              <li class="ok">Listino prezzi su Excel — esiste</li>
+              <li class="warn">Prezzi variabili per lavoro (non fissi)</li>
+              <li class="warn">Preventivi fatti manualmente in Word/Excel</li>
+              <li class="ok">Taxi NON usato per preventivi — campo libero</li>
+              <li class="ok">Accesso diretto al sito confermato</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Cosa ci serve</h4>
+            <ul>
+              <li class="need">Ricevere il file Excel con listino prezzi da Daniele</li>
+              <li class="need">Strutturare listino su Airtable (categorie, voci, prezzi base)</li>
+              <li class="need">Form mobile per tecnici (Tally o form custom)</li>
+              <li class="need">Workflow n8n: form → listino → AI redige testo → Documint PDF</li>
+              <li class="need">Step di approvazione tecnico prima dell'invio</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Rischi e note</h4>
+            <ul>
+              <li class="warn">Prezzi variabili: il tecnico deve approvare il preventivo AI prima che parta</li>
+              <li class="ok">Struttura flessibile: prezzo base da listino + campo "sconto/maggiorazione"</li>
+              <li class="ok">Non dipende da ADA né da Taxi — parte autonoma</li>
+              <li class="ok">Documint genera PDF branded in pochi secondi</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. REGISTRO INTERVENTI -->
+      <div class="feas-card">
+        <div class="feas-header">
+          <span class="feas-badge arancio">🟠 Dipende da API ADA + Taxi webservice</span>
+          <div>
+            <div class="feas-title">4. Registro Interventi e Fatturazione Automatica</div>
+            <div class="feas-subtitle">Tecnico compila da smartphone → registro aggiornato → fattura generata automaticamente</div>
+          </div>
+          <div class="feas-fase">Fase 3 · Sett. 11–16</div>
+        </div>
+        <div class="feas-body">
+          <div class="feas-col">
+            <h4>Stato attuale</h4>
+            <ul>
+              <li class="warn">Registro interventi su Excel manuale</li>
+              <li class="ok">Fatturazione su Taxi (solo fatturazione)</li>
+              <li class="ok">Referente tecnico Invest & Engineering disponibile</li>
+              <li class="warn">ADA gestisce interventi — API da verificare</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Cosa ci serve</h4>
+            <ul>
+              <li class="need">Contattare referente tecnico Invest & Engineering per doc webservice Taxi</li>
+              <li class="need">Verificare API ADA per registro interventi</li>
+              <li class="need">Form mobile tecnico post-intervento (tipo, ore, materiali, note)</li>
+              <li class="need">n8n → Taxi webservice per emissione fattura automatica</li>
+              <li class="need">Invio fattura PDF al cliente via WhatsApp + email</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Rischi e note</h4>
+            <ul>
+              <li class="ok">Taxi ha webservice documentato — già usato da terzi (Intempra)</li>
+              <li class="ok">Referente tecnico disponibile — approccio diretto rapido</li>
+              <li class="warn">Se ADA non ha API: registro interventi su Google Sheets come layer</li>
+              <li class="ok">La fatturazione via Taxi è la parte più solida del modulo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. FEEDBACK -->
+      <div class="feas-card">
+        <div class="feas-header">
+          <span class="feas-badge giallo">🟡 Fattibile — Keplero da valutare</span>
+          <div>
+            <div class="feas-title">5. Feedback Post-Intervento e Raccolta Recensioni</div>
+            <div class="feas-subtitle">Chiamata AI 72h dopo intervento → analisi → se positivo: link Google recensione</div>
+          </div>
+          <div class="feas-fase">Fase 4 · Sett. 17–20</div>
+        </div>
+        <div class="feas-body">
+          <div class="feas-col">
+            <h4>Stato attuale</h4>
+            <ul>
+              <li class="warn">Feedback attuale: chiamate manuali saltuarie</li>
+              <li class="warn">Keplero gestisce chiamate fuori orario — API da verificare</li>
+              <li class="warn">Nessun sistema automatico di raccolta recensioni</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Cosa ci serve</h4>
+            <ul>
+              <li class="need">Valutare se Keplero ha API/webhook (chiedere a Keplero)</li>
+              <li class="need">Se no: sostituire con Bland AI (€0.09/min) o Vapi (€0.05/min)</li>
+              <li class="need">n8n trigger: 72h dopo chiusura intervento</li>
+              <li class="need">Script chiamata AI personalizzato per Drago</li>
+              <li class="need">Link Google My Business di Drago per redirect recensioni</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Rischi e note</h4>
+            <ul>
+              <li class="ok">Bland AI e Vapi sono soluzioni mature e integrabili nativamente con n8n</li>
+              <li class="ok">Costo basso: a ~10 chiamate/giorno = €25–35/mese con Vapi</li>
+              <li class="warn">Numero chiamante deve essere italiano per tassi di risposta accettabili</li>
+              <li class="ok">Non dipende da ADA — trigger manuale o da Google Sheets</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. SOCIAL E COMUNICAZIONE -->
+      <div class="feas-card">
+        <div class="feas-header">
+          <span class="feas-badge verde">🟢 Fattibile subito</span>
+          <div>
+            <div class="feas-title">6. Comunicazione Segmentata e Social</div>
+            <div class="feas-subtitle">Campagne stagionali WhatsApp/email → post social automatici via Meta API</div>
+          </div>
+          <div class="feas-fase">Fase 4 · Sett. 17–20</div>
+        </div>
+        <div class="feas-body">
+          <div class="feas-col">
+            <h4>Stato attuale</h4>
+            <ul>
+              <li class="warn">Zero comunicazione proattiva verso clienti</li>
+              <li class="warn">Social presenti ma non aggiornati</li>
+              <li class="ok">Database clienti su ADA (o Excel)</li>
+              <li class="ok">Facebook, Instagram presenti</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Cosa ci serve</h4>
+            <ul>
+              <li class="need">Database clienti segmentato per tipo impianto (caldaia, condizionatore, ecc.)</li>
+              <li class="need">Calendar editoriale campagne stagionali (es. settembre = check caldaie)</li>
+              <li class="need">Meta Business Manager (condiviso con WhatsApp API)</li>
+              <li class="need">Brevo o Mailchimp per newsletter email</li>
+              <li class="need">Claude AI per generazione testi post e messaggi</li>
+            </ul>
+          </div>
+          <div class="feas-col">
+            <h4>Rischi e note</h4>
+            <ul>
+              <li class="ok">Meta Business Manager (già necessario per WhatsApp) sblocca anche i post social</li>
+              <li class="ok">Le campagne stagionali sono il quickwin con più ROI immediato</li>
+              <li class="warn">Qualità dei dati cliente (segmentazione) dipende da ADA o dall'Excel esistente</li>
+              <li class="ok">Brevo ha piano gratuito fino a 300 email/giorno</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLUSSI DETTAGLIATI -->
+  <div class="section">
+    <div class="section-title">Flussi Operativi Dettagliati</div>
+
+    <div class="flow-container">
+      <div class="flow-title">Fase 1A — Qualifica Lead (con fallback email se WhatsApp API non ancora attiva)</div>
+      <div class="flow-row">
+        <div class="node"><div class="node-box trigger">Cliente compila form</div><div class="node-sub">dragogroup.it (nuovo sito)</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box process">Webhook n8n</div><div class="node-sub">Riceve nome, contatto, tipo problema</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box ai">Claude AI</div><div class="node-sub">Classifica urgenza e tipo servizio</div></div>
+        <div class="arrow">→</div>
+        <div class="branch-container">
+          <div class="branch-row"><span class="branch-label caldo">CALDO (urgente)</span><div class="node"><div class="node-box action">WhatsApp immediato + notifica interna Daniele</div></div></div>
+          <div class="branch-row"><span class="branch-label tiepido">TIEPIDO</span><div class="node"><div class="node-box action">WhatsApp / email + follow-up automatico 24h</div></div></div>
+          <div class="branch-row"><span class="branch-label freddo">FREDDO (info)</span><div class="node"><div class="node-box action">Email nurturing con contenuti utili</div></div></div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box storage">Airtable CRM</div><div class="node-sub">Lead salvato con score, stato, storico</div></div>
+      </div>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-title">Fase 1B — Reminder Appuntamenti (scenario A: ADA ha API)</div>
+      <div class="flow-row">
+        <div class="node"><div class="node-box storage">ADA Metisoft API</div><div class="node-sub">Agenda appuntamenti tecnici</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box process">n8n scheduler (ore 18:00)</div><div class="node-sub">Legge appuntamenti domani</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box ai">Claude AI</div><div class="node-sub">Genera messaggio personalizzato per cliente</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box action">WhatsApp cliente</div><div class="node-sub">"Domani ore X arriva il tecnico Y — confermi?"</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box process">n8n legge risposta</div><div class="node-sub">Conferma / disdetta</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box action">Notifica tecnico</div><div class="node-sub">WhatsApp con riepilogo giornata</div></div>
+      </div>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-title">Fase 1B — Reminder Appuntamenti (scenario B: ADA senza API — fallback Google Calendar)</div>
+      <div class="flow-row">
+        <div class="node"><div class="node-box pending">Google Calendar</div><div class="node-sub">Layer intermedio — tecnici inseriscono appuntamenti qui</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box process">n8n scheduler</div><div class="node-sub">Google Calendar API (gratuita, documentata)</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box ai">Claude AI</div><div class="node-sub">Genera messaggio</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box action">WhatsApp / email cliente</div><div class="node-sub">Reminder + conferma</div></div>
+      </div>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-title">Fase 2 — Preventivazione Automatica con Approvazione Tecnico</div>
+      <div class="flow-row">
+        <div class="node"><div class="node-box trigger">Tecnico compila form mobile</div><div class="node-sub">Tipo lavoro, materiali stimati, indirizzo</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box storage">Airtable Listino</div><div class="node-sub">Importato dall'Excel Drago</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box ai">Claude AI</div><div class="node-sub">Calcola importo + redige testo professionale</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box process">Approvazione Daniele</div><div class="node-sub">WhatsApp: "Preventivo €X per Mario Rossi — invio?" Sì/No</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box tool">Documint</div><div class="node-sub">Genera PDF con logo Drago</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box action">WhatsApp + Email cliente</div><div class="node-sub">PDF + "Accetta" / "Rifiuta" / "Richiedi modifica"</div></div>
+      </div>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-title">Fase 3 — Fatturazione Automatica Post-Intervento</div>
+      <div class="flow-row">
+        <div class="node"><div class="node-box trigger">Intervento completato</div><div class="node-sub">Tecnico chiude il ticket da ADA o form mobile</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box process">n8n</div><div class="node-sub">Recupera dati intervento (cliente, importo, ore)</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box tool">Taxi Webservice</div><div class="node-sub">Emette fattura elettronica automaticamente</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box tool">PDF fattura</div><div class="node-sub">Generata da Taxi</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box action">WhatsApp + Email cliente</div><div class="node-sub">"Ecco la fattura del suo intervento di oggi"</div></div>
+      </div>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-title">Fase 4 — Feedback AI e Raccolta Recensioni Google</div>
+      <div class="flow-row">
+        <div class="node"><div class="node-box trigger">Intervento chiuso</div><div class="node-sub">Trigger da ADA / Google Sheets</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box process">n8n attende 72 ore</div><div class="node-sub">Timer schedulato</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box ai">Bland AI / Vapi</div><div class="node-sub">Chiama il cliente con script personalizzato Drago</div></div>
+        <div class="arrow">→</div>
+        <div class="node"><div class="node-box ai">Claude AI</div><div class="node-sub">Analizza trascrizione — sentiment positivo o negativo</div></div>
+        <div class="arrow">→</div>
+        <div class="branch-container">
+          <div class="branch-row"><span class="branch-label pos">POSITIVO</span><div class="node"><div class="node-box action">WhatsApp: "Lasci una recensione su Google" + link diretto</div></div></div>
+          <div class="branch-row"><span class="branch-label neg">NEGATIVO / CRITICO</span><div class="node"><div class="node-box action">Alert su WhatsApp a Daniele — richiamo manuale entro 24h</div></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PIANO FASI -->
   <div class="section">
     <div class="section-title">Piano di Realizzazione — 4 Fasi</div>
     <div class="fasi-grid">
@@ -129,339 +568,206 @@
         <div class="fase-num">Fase 1 · Sett. 1–4</div>
         <div class="fase-title">Lead & Comunicazione</div>
         <ul class="fase-items">
-          <li>Form lead su sito web</li>
-          <li>Qualifica AI automatica</li>
-          <li>Risposta WhatsApp &lt; 2 min</li>
-          <li>Reminder appuntamenti</li>
+          <li>Form lead su dragogroup.it</li>
+          <li>Qualifica AI (caldo/tiepido/freddo)</li>
+          <li>Risposta WhatsApp/email &lt; 2 min</li>
+          <li>Reminder appuntamenti automatici</li>
+          <li>Setup Meta Business Manager</li>
+          <li>Richiesta API WhatsApp Meta</li>
         </ul>
-        <div class="fase-meta">
-          <span class="fase-durata">4 settimane</span>
-          <span class="fase-priorita alta">ALTA</span>
-        </div>
+        <div class="fase-meta"><span style="color:#777">4 settimane</span><span class="fase-priorita alta">ALTA · PARTE SUBITO</span></div>
       </div>
       <div class="fase-card alta">
         <div class="fase-num">Fase 2 · Sett. 5–10</div>
         <div class="fase-title">Preventivazione</div>
         <ul class="fase-items">
-          <li>Listino prezzi strutturato</li>
-          <li>Generazione PDF automatica</li>
+          <li>Strutturazione listino su Airtable</li>
+          <li>Form mobile tecnici</li>
+          <li>Generazione preventivo AI + PDF</li>
+          <li>Step approvazione Daniele</li>
+          <li>Tracking stato (inviato/accettato/rifiutato)</li>
           <li>Invio WhatsApp + email</li>
-          <li>Tracking stato preventivo</li>
         </ul>
-        <div class="fase-meta">
-          <span class="fase-durata">6 settimane</span>
-          <span class="fase-priorita alta">ALTA</span>
-        </div>
+        <div class="fase-meta"><span style="color:#777">6 settimane</span><span class="fase-priorita alta">ALTA</span></div>
       </div>
       <div class="fase-card media">
         <div class="fase-num">Fase 3 · Sett. 11–16</div>
         <div class="fase-title">Integrazioni Gestionali</div>
         <ul class="fase-items">
-          <li>Integrazione ADA Metisoft</li>
-          <li>Webservice Taxi (fatture)</li>
+          <li>Integrazione ADA (se API disponibile)</li>
+          <li>Google Calendar come fallback ADA</li>
+          <li>Webservice Taxi per fatture</li>
           <li>Registro interventi digitale</li>
-          <li>Fatturazione automatica</li>
+          <li>Fatturazione automatica post-intervento</li>
         </ul>
-        <div class="fase-meta">
-          <span class="fase-durata">6 settimane</span>
-          <span class="fase-priorita media">MEDIA</span>
-        </div>
+        <div class="fase-meta"><span style="color:#777">6 settimane</span><span class="fase-priorita media">MEDIA</span></div>
       </div>
       <div class="fase-card media">
         <div class="fase-num">Fase 4 · Sett. 17–20</div>
         <div class="fase-title">Feedback & Social</div>
         <ul class="fase-items">
-          <li>Chiamate AI post-intervento</li>
-          <li>Raccolta recensioni Google</li>
-          <li>Campagne stagionali</li>
-          <li>Post social automatici</li>
+          <li>Chiamate AI post-intervento (Bland AI)</li>
+          <li>Analisi sentiment feedback</li>
+          <li>Raccolta recensioni Google automatica</li>
+          <li>Campagne stagionali WhatsApp/email</li>
+          <li>Post social automatici via Meta API</li>
         </ul>
-        <div class="fase-meta">
-          <span class="fase-durata">4 settimane</span>
-          <span class="fase-priorita media">MEDIA</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FLOW FASE 1 -->
-  <div class="section">
-    <div class="section-title">Flusso Dettagliato — Fase 1: Lead & Comunicazione</div>
-    <div class="flow-container">
-
-      <div class="flow-title">1.1 · Qualifica Lead Automatica</div>
-      <div class="flow-row">
-        <div class="node">
-          <div class="node-box trigger">Cliente compila form</div>
-          <div class="node-sub">Sito Duda</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box process">Webhook n8n</div>
-          <div class="node-sub">Riceve i dati del lead</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box ai">Claude AI</div>
-          <div class="node-sub">Qualifica: caldo / tiepido / freddo</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="branch-container">
-          <div class="branch-row">
-            <span class="branch-label caldo">CALDO</span>
-            <div class="node"><div class="node-box action">WhatsApp immediato + priorità chiamata</div></div>
-          </div>
-          <div class="branch-row">
-            <span class="branch-label tiepido">TIEPIDO</span>
-            <div class="node"><div class="node-box action">WhatsApp + follow-up 24h</div></div>
-          </div>
-          <div class="branch-row">
-            <span class="branch-label freddo">FREDDO</span>
-            <div class="node"><div class="node-box action">Email nurturing automatica</div></div>
-          </div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box storage">Airtable / Sheets</div>
-          <div class="node-sub">Salva lead + stato</div>
-        </div>
-      </div>
-
-      <br>
-      <div class="flow-title">1.2 · Reminder Appuntamenti</div>
-      <div class="flow-row">
-        <div class="node">
-          <div class="node-box storage">ADA Metisoft / Google Cal</div>
-          <div class="node-sub">Agenda tecnici</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box process">n8n scheduler</div>
-          <div class="node-sub">Controlla appuntamenti del giorno dopo</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box ai">Claude AI</div>
-          <div class="node-sub">Genera messaggio personalizzato</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box action">WhatsApp al cliente</div>
-          <div class="node-sub">Conferma o disdetta con un tap</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box action">Notifica al tecnico</div>
-          <div class="node-sub">Aggiorna agenda automaticamente</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- FLOW FASE 2 -->
-  <div class="section">
-    <div class="section-title">Flusso Dettagliato — Fase 2: Preventivazione Automatica</div>
-    <div class="flow-container">
-      <div class="flow-title">2.1 · Generazione Preventivo</div>
-      <div class="flow-row">
-        <div class="node">
-          <div class="node-box trigger">Tecnico compila form mobile</div>
-          <div class="node-sub">Tipo intervento + materiali</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box process">n8n</div>
-          <div class="node-sub">Recupera prezzi da listino</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box storage">Airtable Listino</div>
-          <div class="node-sub">Prezzi per servizio</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box ai">Claude AI</div>
-          <div class="node-sub">Redige testo preventivo professionale</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box tool">Documint</div>
-          <div class="node-sub">Genera PDF branded</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box action">WhatsApp + Email al cliente</div>
-          <div class="node-sub">PDF + link per accettare/rifiutare</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FLOW FASE 4 -->
-  <div class="section">
-    <div class="section-title">Flusso Dettagliato — Fase 4: Feedback & Recensioni</div>
-    <div class="flow-container">
-      <div class="flow-title">4.1 · Chiamata AI post-intervento</div>
-      <div class="flow-row">
-        <div class="node">
-          <div class="node-box trigger">Intervento chiuso in ADA</div>
-          <div class="node-sub">Trigger automatico</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box process">n8n attende 72h</div>
-          <div class="node-sub">Timer post-chiusura</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box ai">Bland AI / Vapi</div>
-          <div class="node-sub">Chiama il cliente, raccoglie feedback vocale</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="node">
-          <div class="node-box ai">Claude AI</div>
-          <div class="node-sub">Analizza trascrizione: positivo / negativo</div>
-        </div>
-        <div class="arrow">→</div>
-        <div class="branch-container">
-          <div class="branch-row">
-            <span class="branch-label caldo">POSITIVO</span>
-            <div class="node"><div class="node-box action">WhatsApp link recensione Google</div></div>
-          </div>
-          <div class="branch-row">
-            <span class="branch-label freddo">NEGATIVO</span>
-            <div class="node"><div class="node-box action">Alert interno → Daniele richiama</div></div>
-          </div>
-        </div>
+        <div class="fase-meta"><span style="color:#777">4 settimane</span><span class="fase-priorita media">MEDIA</span></div>
       </div>
     </div>
   </div>
 
   <!-- STACK TECNOLOGICO -->
   <div class="section">
-    <div class="section-title">Stack Tecnologico</div>
+    <div class="section-title">Stack Tecnologico — Stato e Costi</div>
     <div class="stack-grid">
       <div class="stack-item">
         <div class="stack-role">Orchestrazione</div>
         <div class="stack-tool">n8n Cloud</div>
-        <div class="stack-desc">Motore centrale di tutti i workflow automatici</div>
+        <div class="stack-desc">Motore centrale di tutti i workflow automatici. Connette tutti i tool.</div>
         <div class="stack-cost">€20–50/mese</div>
+        <div class="stack-status todo">⚠ Da attivare</div>
       </div>
       <div class="stack-item">
         <div class="stack-role">AI / LLM</div>
         <div class="stack-tool">Claude API (Anthropic)</div>
-        <div class="stack-desc">Qualifica lead, messaggi, preventivi, analisi feedback</div>
+        <div class="stack-desc">Qualifica lead, testi messaggi, preventivi, analisi feedback chiamate.</div>
         <div class="stack-cost">€30–100/mese</div>
+        <div class="stack-status todo">⚠ Da attivare</div>
       </div>
       <div class="stack-item">
         <div class="stack-role">Messaggistica</div>
-        <div class="stack-tool">WhatsApp Business API</div>
-        <div class="stack-desc">Comunicazioni automatiche con i clienti via Meta</div>
+        <div class="stack-tool">WhatsApp Business API (Meta)</div>
+        <div class="stack-desc">Comunicazioni automatiche clienti. Richiede Meta Business Manager da creare.</div>
         <div class="stack-cost">€80–150/mese</div>
+        <div class="stack-status todo">⚠ Setup da zero — 1–2 sett. approvazione</div>
       </div>
       <div class="stack-item">
         <div class="stack-role">Voce AI</div>
-        <div class="stack-tool">Bland AI / Vapi</div>
-        <div class="stack-desc">Chiamate automatiche post-intervento per feedback</div>
-        <div class="stack-cost">€30–80/mese</div>
+        <div class="stack-tool">Bland AI o Vapi</div>
+        <div class="stack-desc">Chiamate automatiche post-intervento per raccolta feedback. Bland AI €0.09/min, Vapi €0.05/min.</div>
+        <div class="stack-cost">€25–80/mese</div>
+        <div class="stack-status todo">⚠ Valutare Keplero o sostituire</div>
       </div>
       <div class="stack-item">
         <div class="stack-role">Gestionale (esistente)</div>
         <div class="stack-tool">ADA Metisoft</div>
-        <div class="stack-desc">Interventi, agenda tecnici, magazzino</div>
+        <div class="stack-desc">Interventi, agenda tecnici, magazzino. WordPress-based — API da verificare con Metisoft.</div>
         <div class="stack-cost">Già pagato</div>
+        <div class="stack-status todo">⚠ Verificare API/webhook disponibili</div>
       </div>
       <div class="stack-item">
         <div class="stack-role">Fatturazione (esistente)</div>
         <div class="stack-tool">Taxi — Invest & Engineering</div>
-        <div class="stack-desc">Emissione fatture via webservice documentato</div>
+        <div class="stack-desc">Solo fatturazione. Webservice documentato già usato da terzi. Referente tecnico disponibile.</div>
         <div class="stack-cost">Già pagato</div>
+        <div class="stack-status ok">✓ Webservice confermato — contattare referente</div>
       </div>
       <div class="stack-item">
-        <div class="stack-role">Database Lead</div>
-        <div class="stack-tool">Airtable / Google Sheets</div>
-        <div class="stack-desc">Lead, listino prezzi, tracking preventivi</div>
+        <div class="stack-role">Database Lead / Listino</div>
+        <div class="stack-tool">Airtable</div>
+        <div class="stack-desc">CRM lead, listino prezzi (importato da Excel), tracking preventivi e stati.</div>
         <div class="stack-cost">€0–20/mese</div>
+        <div class="stack-status todo">⚠ Da configurare — importare Excel listino</div>
       </div>
       <div class="stack-item">
         <div class="stack-role">PDF Preventivi</div>
         <div class="stack-tool">Documint</div>
-        <div class="stack-desc">Generazione PDF branded da template</div>
+        <div class="stack-desc">Generazione PDF branded da template. Integrazione nativa con n8n.</div>
         <div class="stack-cost">€19–39/mese</div>
+        <div class="stack-status todo">⚠ Da attivare in Fase 2</div>
       </div>
       <div class="stack-item">
-        <div class="stack-role">Email</div>
-        <div class="stack-tool">Gmail → Google Workspace</div>
-        <div class="stack-desc">Comunicazioni formali su dominio aziendale</div>
-        <div class="stack-cost">€6–12/mese</div>
+        <div class="stack-role">Calendario fallback</div>
+        <div class="stack-tool">Google Calendar</div>
+        <div class="stack-desc">Usato come layer intermedio se ADA non espone API. API gratuita.</div>
+        <div class="stack-cost">€0</div>
+        <div class="stack-status ok">✓ Disponibile subito se necessario</div>
       </div>
     </div>
   </div>
 
-  <!-- STIMA ECONOMICA -->
+  <!-- STIMA ECONOMICA AGGIORNATA -->
   <div class="section">
-    <div class="section-title">Stima Economica</div>
+    <div class="section-title">Stima Economica Aggiornata — Post Risposte Cliente</div>
+    <div class="alert info" style="margin-bottom:16px">
+      <strong>Aggiornamenti v1.2</strong>
+      Setup WhatsApp aggiunto (+€300–500 per Meta Business Manager da zero) · Preventivazione confermata come modulo custom · Taxi confermato solo fatturazione · Sito web: da allineare su dragogroup.it
+    </div>
     <div class="costi-grid">
       <div class="costo-card">
         <h3>Setup — Una Tantum</h3>
-        <div class="costo-row"><span class="costo-label">Infrastruttura (n8n, DB, webhook, test)</span><span class="costo-val">€1.200–1.800</span></div>
-        <div class="costo-row"><span class="costo-label">Fase 1 — Lead + WhatsApp + AI + Reminder</span><span class="costo-val">€1.600–2.400</span></div>
-        <div class="costo-row"><span class="costo-label">Fase 2 — Preventivazione automatica + PDF</span><span class="costo-val">€1.900–3.000</span></div>
-        <div class="costo-row"><span class="costo-label">Fase 3 — ADA + Taxi + Fatturazione</span><span class="costo-val">€1.300–2.400</span></div>
-        <div class="costo-row"><span class="costo-label">Fase 4 — Feedback AI + Social</span><span class="costo-val">€1.100–1.700</span></div>
-        <div class="costo-total"><span>TOTALE SETUP</span><span>€7.100–11.300</span></div>
+        <div class="costo-row"><span class="costo-label">Infrastruttura base (n8n, DB, webhook, test)</span><span class="costo-val">€1.200–1.800</span></div>
+        <div class="costo-row"><span class="costo-label">Fase 1 — Lead form + AI qualifica + reminder</span><span class="costo-val">€1.600–2.400</span></div>
+        <div class="costo-row"><span class="costo-label new">Setup Meta Business Manager + WhatsApp API</span><span class="costo-val new">€300–500 (NUOVO)</span></div>
+        <div class="costo-row"><span class="costo-label">Fase 2 — Preventivazione + PDF + listino</span><span class="costo-val">€1.900–3.000</span></div>
+        <div class="costo-row"><span class="costo-label">Fase 3 — ADA + Taxi webservice + fatturazione</span><span class="costo-val">€1.300–2.400</span></div>
+        <div class="costo-row"><span class="costo-label">Fase 4 — Feedback AI + social + comunicazioni</span><span class="costo-val">€1.100–1.700</span></div>
+        <div class="costo-total"><span>TOTALE SETUP</span><span>€7.400–11.800</span></div>
       </div>
       <div class="costo-card">
         <h3>Canone Mensile — Gestione e Tool</h3>
-        <div class="costo-row"><span class="costo-label">Manutenzione workflow + monitoring</span><span class="costo-val">€300–500</span></div>
+        <div class="costo-row"><span class="costo-label">Manutenzione workflow n8n + monitoring</span><span class="costo-val">€300–500</span></div>
         <div class="costo-row"><span class="costo-label">n8n Cloud</span><span class="costo-val">€20–50</span></div>
         <div class="costo-row"><span class="costo-label">Claude AI API</span><span class="costo-val">€30–100</span></div>
-        <div class="costo-row"><span class="costo-label">WhatsApp Business API</span><span class="costo-val">€80–150</span></div>
-        <div class="costo-row"><span class="costo-label">Voce AI (Bland AI / Vapi)</span><span class="costo-val">€30–80</span></div>
-        <div class="costo-row"><span class="costo-label">Database + PDF + Email</span><span class="costo-val">€25–71</span></div>
-        <div class="costo-total"><span>TOTALE MENSILE</span><span>€485–961</span></div>
+        <div class="costo-row"><span class="costo-label">WhatsApp Business API (Meta)</span><span class="costo-val">€80–150</span></div>
+        <div class="costo-row"><span class="costo-label">Voce AI — Bland AI / Vapi</span><span class="costo-val">€25–80</span></div>
+        <div class="costo-row"><span class="costo-label">Airtable + Documint + Email dominio</span><span class="costo-val">€25–71</span></div>
+        <div class="costo-total"><span>TOTALE MENSILE CLIENTE</span><span>€480–951</span></div>
       </div>
     </div>
   </div>
 
-  <!-- DOMANDE AL CLIENTE -->
+  <!-- PROSSIMI PASSI -->
   <div class="section">
-    <div class="section-title">5 Domande per Chiudere il Preventivo</div>
-    <div class="domande-list">
-      <div class="domanda-item">
-        <div class="domanda-num">1</div>
+    <div class="section-title">Prossimi Passi — Azioni Concrete</div>
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <span class="step-who">The Qube — OGGI</span>
         <div>
-          <div class="domanda-text"><strong>ADA Metisoft:</strong> lo usate per la gestione completa (agenda tecnici, interventi, fatturazione) o solo per una parte? Cosa fate ancora manualmente?</div>
-          <div class="domanda-why">Impatto: ±€3.000 sul preventivo finale</div>
+          <div class="step-text"><strong>Chiarire tempistiche dragogroup.it:</strong> chiedere a Daniele quando avviene la migrazione del sito. Se entro 4 settimane → costruiamo il form direttamente sul nuovo sito e saltiamo dragocaldaiebari.com. Se oltre 4 settimane → aggiungiamo il form all'attuale e poi migriamo.</div>
+          <div class="step-urgency high">URGENTE — blocca l'inizio Fase 1</div>
         </div>
       </div>
-      <div class="domanda-item">
-        <div class="domanda-num">2</div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <span class="step-who">The Qube — questa settimana</span>
         <div>
-          <div class="domanda-text"><strong>ADA ha API o webhook?</strong> Possiamo contattare Metisoft insieme a voi per richiedere la documentazione tecnica?</div>
-          <div class="domanda-why">Impatto: ±2 settimane di lavoro sull'integrazione</div>
+          <div class="step-text"><strong>Contattare Metisoft (ADA):</strong> chiedere se ADA espone REST API o webhook per integrazioni terze parti. L'URL ada.metisoft.it usa wp_cron → è WordPress → probabile che esista un'API. Se sì: Fase 3 si semplifica molto. Se no: Google Calendar come layer intermedio.</div>
+          <div class="step-urgency high">URGENTE — impatto ±€2.000 sul preventivo</div>
         </div>
       </div>
-      <div class="domanda-item">
-        <div class="domanda-num">3</div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <span class="step-who">The Qube — questa settimana</span>
         <div>
-          <div class="domanda-text"><strong>Avete un listino prezzi strutturato?</strong> (es. manutenzione caldaia = €X, sostituzione bruciatore = €Y) O i prezzi vengono definiti caso per caso?</div>
-          <div class="domanda-why">Prerequisito assoluto per la preventivazione automatica — se non esiste va costruito: +1–2 settimane</div>
+          <div class="step-text"><strong>Contattare referente tecnico Invest & Engineering (Taxi):</strong> richiedere documentazione del webservice per integrazione n8n. Sono a Bari — telefonata diretta è il percorso più rapido. Obiettivo: avere le specifiche API entro fine settimana.</div>
+          <div class="step-urgency med">MEDIA — serve per Fase 3</div>
         </div>
       </div>
-      <div class="domanda-item">
-        <div class="domanda-num">4</div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <span class="step-who">Cliente (Daniele) — questa settimana</span>
         <div>
-          <div class="domanda-text"><strong>Il WhatsApp +39 329 9540574</strong> è un WhatsApp Business App o avete già accesso all'API ufficiale Meta? Avete un account Meta Business Manager?</div>
-          <div class="domanda-why">L'automazione WhatsApp richiede l'API Meta ufficiale — setup 1–2 settimane se non ce l'hanno</div>
+          <div class="step-text"><strong>Inviare il file Excel con il listino prezzi:</strong> anche nella versione attuale, anche incompleta. Serve per strutturare il database Airtable per la preventivazione automatica. Il listino può essere aggiornato in qualsiasi momento da Airtable.</div>
+          <div class="step-urgency med">MEDIA — prerequisito Fase 2</div>
         </div>
       </div>
-      <div class="domanda-item">
-        <div class="domanda-num">5</div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <span class="step-who">The Qube + Cliente — settimana prossima</span>
         <div>
-          <div class="domanda-text"><strong>Keplero:</strong> quante chiamate fuori orario gestisce al mese? Siete soddisfatti o aperti a valutare alternative più integrabili?</div>
-          <div class="domanda-why">Se non ha API aperte va sostituito con Bland AI o Vapi per i feedback post-intervento</div>
+          <div class="step-text"><strong>Call tecnica 45 min con Daniele:</strong> allinearsi su dragogroup.it, verificare cosa usa di ADA, decidere approccio WhatsApp API, approvare architettura finale. Dopo questa call emittiamo il preventivo definitivo per fasi.</div>
+          <div class="step-urgency med">MEDIA — chiude il preventivo</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">6</div>
+        <span class="step-who">The Qube — dopo la call</span>
+        <div>
+          <div class="step-text"><strong>Kick-off Fase 1:</strong> setup Meta Business Manager + richiesta API WhatsApp + form lead su sito. La logica AI e i workflow n8n si costruiscono in parallelo all'approvazione Meta (1–2 settimane). Il cliente vede i primi risultati entro 4 settimane.</div>
+          <div class="step-urgency med">Dopo call — concordare data con cliente</div>
         </div>
       </div>
     </div>
@@ -470,7 +776,7 @@
   <!-- FOOTER -->
   <div class="footer">
     <span>Documento riservato — The Qube / TQC S.r.l. · theqube.it</span>
-    <span>Drago S.r.l. — Analisi Fattibilità v1.1 — Maggio 2026</span>
+    <span>Drago S.r.l. — Schema Automazioni AI v1.2 — Maggio 2026 — Post risposte cliente</span>
   </div>
 
 </div>
