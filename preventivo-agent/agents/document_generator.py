@@ -6,12 +6,12 @@ from models.brief import ProjectBrief
 from models.quote import Quote
 
 console = Console()
-client = Anthropic()
 
 
 class DocumentGenerator:
     def __init__(self):
         self.output_base = Path("output")
+        self.client = Anthropic()
 
     def generate(self, brief: ProjectBrief, quote: Quote) -> Path:
         dir_name = f"{date.today().strftime('%Y%m%d')}_{brief.client_name.replace(' ', '_').lower() or 'cliente'}"
@@ -95,7 +95,7 @@ Linee guida:
 - Non inserire il nome del mittente (lo aggiunge il cliente)
 - Non usare emoji"""
 
-        response = client.messages.create(
+        response = self.client.messages.create(
             model="claude-haiku-4-5-20251001",
             max_tokens=800,
             messages=[{"role": "user", "content": prompt}]

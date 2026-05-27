@@ -1,11 +1,11 @@
 import json
+from json_repair import repair_json
 from anthropic import Anthropic
 from rich.console import Console
 from models.brief import ProjectBrief
 from models.quote import Quote, QuoteItem
 
 console = Console()
-client = Anthropic()
 
 REFERENCE_PROJECT = """
 PROGETTO DI RIFERIMENTO (usa come calibrazione prezzi):
@@ -66,6 +66,7 @@ Regole:
 class FeasibilityAnalyzer:
     def __init__(self, hourly_rate: float = 60.0):
         self.hourly_rate = hourly_rate
+        self.client = Anthropic()
 
     def analyze(self, brief: ProjectBrief) -> Quote:
         console.print("[dim]Analisi in corso...[/dim]")
@@ -76,7 +77,7 @@ class FeasibilityAnalyzer:
             .replace("REFERENCE_PROJECT_PLACEHOLDER", REFERENCE_PROJECT)
         )
 
-        response = client.messages.create(
+        response = self.client.messages.create(
             model="claude-sonnet-4-6",
             max_tokens=2048,
             system=[{
@@ -116,6 +117,12 @@ class FeasibilityAnalyzer:
         ])
 
     def _parse_quote(self, text: str) -> Quote:
+        # Strip markdown code blocks if present
+        if "```" in text:
+            text = text.split("```")[-2] if text.count("```") >= 2 else text
+            if text.startswith("json"):
+                text = text[4:]
+
         start = text.find("{")
         end = text.rfind("}") + 1
 
@@ -124,7 +131,7 @@ class FeasibilityAnalyzer:
             return Quote()
 
         try:
-            data = json.loads(text[start:end])
+            data = json.loads(repair_json(text[start:end]))
             quote = Quote(
                 project_name=data.get("project_name", ""),
                 client_name=data.get("client_name", ""),

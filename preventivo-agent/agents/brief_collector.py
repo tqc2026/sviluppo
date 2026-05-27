@@ -4,7 +4,6 @@ from rich.console import Console
 from models.brief import ProjectBrief
 
 console = Console()
-client = Anthropic()
 
 SYSTEM_PROMPT = """Sei un esperto analista di progetti digitali che lavora per un'agenzia di sviluppo software italiana.
 Il tuo compito è raccogliere tutte le informazioni necessarie per elaborare un preventivo professionale per un nuovo progetto cliente.
@@ -54,6 +53,7 @@ Il JSON deve avere questo formato:
 class BriefCollector:
     def __init__(self):
         self.messages = []
+        self.client = Anthropic()
 
     def collect(self) -> ProjectBrief | None:
         console.print("[dim]Descrivi il progetto del cliente. Digita 'fine' per annullare.[/dim]\n")
@@ -64,7 +64,7 @@ class BriefCollector:
         })
 
         while True:
-            response = client.messages.create(
+            response = self.client.messages.create(
                 model="claude-sonnet-4-6",
                 max_tokens=1024,
                 system=[{
