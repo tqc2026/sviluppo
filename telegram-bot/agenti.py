@@ -7,6 +7,31 @@ from dotenv import load_dotenv
 load_dotenv()
 ai = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
+# Tavily opzionale — attivo solo se la chiave è presente nel .env
+_tavily = None
+if os.getenv("TAVILY_API_KEY"):
+    try:
+        from tavily import TavilyClient
+        _tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+    except ImportError:
+        pass
+
+
+def _ricerca_web(query, max_results=4):
+    """Esegue ricerca web con Tavily. Restituisce testo vuoto se non disponibile."""
+    if not _tavily:
+        return ""
+    try:
+        risultati = _tavily.search(query=query, max_results=max_results, search_depth="advanced")
+        testi = []
+        for r in risultati.get("results", []):
+            titolo = r.get("title", "")
+            contenuto = r.get("content", "")[:400]
+            testi.append(f"• {titolo}: {contenuto}")
+        return "\n".join(testi)
+    except Exception:
+        return ""
+
 STRATEGIST_PERSONA = """Sei Marco, senior content strategist con 10 anni di esperienza nel marketing digitale italiano.
 Hai lavorato con brand di formazione professionale, liberi professionisti e PMI.
 Sei esperto di LinkedIn e Facebook per il mercato italiano.
@@ -97,7 +122,17 @@ def analisi_settore(cliente):
     piattaforme = ", ".join(cliente.get("piattaforme", []))
     obiettivi = cliente.get("obiettivi", "")
 
-    prompt = f"""Analizza in profondità il settore "{settore}" per il brand "{nome}".
+    # Arricchimento con dati real-time se Tavily è disponibile
+    dati_web = ""
+    if _tavily:
+        query1 = _ricerca_web(f"content marketing {settore} Italia social media 2024 2025")
+        query2 = _ricerca_web(f"strategie crescita follower {settore} LinkedIn Facebook Italia")
+        query3 = _ricerca_web(f"trend comunicazione {settore} social media professionisti italiani")
+        risultati = "\n".join(filter(None, [query1, query2, query3]))
+        if risultati:
+            dati_web = f"\n\nDATI AGGIORNATI DA RICERCA WEB (usali per arricchire l'analisi):\n{risultati}\n"
+
+    prompt = f"""Analizza in profondità il settore "{settore}" per il brand "{nome}".{dati_web}
 
 Target dichiarato: {target}
 Piattaforme: {piattaforme}
