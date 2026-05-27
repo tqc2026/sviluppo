@@ -1,8 +1,11 @@
 import json
+import os
 from anthropic import Anthropic
 from json_repair import repair_json
+from dotenv import load_dotenv
 
-ai = Anthropic()
+load_dotenv()
+ai = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 STRATEGIST_PERSONA = """Sei Marco, senior content strategist con 10 anni di esperienza nel marketing digitale italiano.
 Hai lavorato con brand di formazione professionale, liberi professionisti e PMI.
