@@ -569,16 +569,24 @@ def _kb_scartato(idx):
 # UTILITY
 # ═══════════════════════════════════════════════════════════════
 
+def _send_safe(chat_id, testo):
+    """Invia testo provando Markdown, fallback a plain text se fallisce."""
+    try:
+        bot.send_message(chat_id, testo, parse_mode="Markdown")
+    except Exception:
+        bot.send_message(chat_id, testo)
+
+
 def _invia_testo_lungo(chat_id, testo, max_len=4000):
     """Divide messaggi lunghi in blocchi compatibili con Telegram."""
     while len(testo) > max_len:
         split_at = testo.rfind("\n", 0, max_len)
         if split_at == -1:
             split_at = max_len
-        bot.send_message(chat_id, testo[:split_at], parse_mode="Markdown")
+        _send_safe(chat_id, testo[:split_at])
         testo = testo[split_at:].lstrip()
     if testo:
-        bot.send_message(chat_id, testo, parse_mode="Markdown")
+        _send_safe(chat_id, testo)
 
 
 # ═══════════════════════════════════════════════════════════════
