@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap Operativa — The Qube</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f0f13;
+    color: #e2e8f0;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0f0f13 0%, #1a1a2e 50%, #16213e 100%);
+    border-bottom: 1px solid #2d2d4e;
+    padding: 40px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: 5%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .brand-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 0 20px rgba(99,102,241,0.4);
+  }
+
+  .brand-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #fff;
+  }
+
+  .brand-tag {
+    font-size: 11px;
+    color: #6366f1;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .header h1 span {
+    background: linear-gradient(90deg, #6366f1, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #94a3b8;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .meta-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6366f1;
+  }
+
+  /* CONTENUTO */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  /* FASE */
+  .fase {
+    margin-bottom: 36px;
+    border: 1px solid #1e1e2e;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #13131a;
+  }
+
+  .fase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 24px;
+    background: #16161f;
+    border-bottom: 1px solid #1e1e2e;
+  }
+
+  .fase-numero {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6366f1;
+    background: rgba(99,102,241,0.1);
+    border: 1px solid rgba(99,102,241,0.2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .fase-titolo {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e2e8f0;
+    flex: 1;
+  }
+
+  .fase-durata {
+    font-size: 12px;
+    color: #64748b;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+
+  .fase-body {
+    padding: 20px 24px;
+  }
+
+  /* TASK */
+  .task {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #1a1a24;
+  }
+
+  .task:last-child { border-bottom: none; }
+
+  .checkbox {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border: 1.5px solid #2d2d4e;
+    border-radius: 4px;
+    margin-top: 2px;
+    background: #0f0f13;
+  }
+
+  .task-testo {
+    font-size: 13.5px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+
+  .task-testo strong {
+    color: #cbd5e1;
+    font-weight: 500;
+  }
+
+  /* SEZIONE SPECIALE */
+  .fase-0 .fase-header { background: linear-gradient(90deg, #1a1a2e, #16161f); }
+  .fase-0 .fase-numero { color: #a78bfa; background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.2); }
+
+  /* SUMMARY BOX */
+  .summary {
+    background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05));
+    border: 1px solid rgba(99,102,241,0.2);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 36px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .summary-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #64748b;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .summary-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .summary-value span {
+    font-size: 13px;
+    font-weight: 400;
+    color: #64748b;
+  }
+
+  /* AI TAG */
+  .ai-powered {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: #6366f1;
+    background: rgba(99,102,241,0.08);
+    border: 1px solid rgba(99,102,241,0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+  }
+
+  .ai-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6366f1;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid #1e1e2e;
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0d0d11;
+  }
+
+  .footer-brand {
+    font-size: 13px;
+    color: #475569;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .footer-brand strong { color: #6366f1; }
+
+  .footer-note {
+    font-size: 12px;
+    color: #334155;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; color: #000; }
+    .header { background: #1a1a2e !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .fase { border-color: #ddd; }
+    .footer { background: #f8f9fa; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">
+    <div class="brand-icon">⬡</div>
+    <div>
+      <div class="brand-name">THE QUBE</div>
+      <div class="brand-tag">AI · Automation · Digital</div>
+    </div>
+  </div>
+  <h1>Roadmap Operativa<br><span>Social Media Automation</span></h1>
+  <div class="header-meta">
+    <div class="meta-item"><div class="meta-dot"></div>Durata stimata: 5-6 settimane</div>
+    <div class="meta-item"><div class="meta-dot"></div>Stack: Python · Claude AI · Meta API · LinkedIn API</div>
+    <div class="meta-item"><div class="meta-dot"></div>Aggiornato: Maggio 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="ai-powered">
+    <div class="ai-dot"></div>
+    AI-Powered Workflow — Powered by Claude · Anthropic
+  </div>
+
+  <div class="summary">
+    <div class="summary-item">
+      <div class="summary-label">Fasi totali</div>
+      <div class="summary-value">10</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-label">Durata</div>
+      <div class="summary-value">5-6 <span>settimane</span></div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-label">Investimento</div>
+      <div class="summary-value">€4.900 <span>una tantum</span></div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-label">Canone mensile</div>
+      <div class="summary-value">€15 <span>/ mese</span></div>
+    </div>
+  </div>
+
+  <!-- FASE 0 -->
+  <div class="fase fase-0">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 0</div>
+      <div class="fase-titolo">Prerequisiti — Prima di scrivere codice</div>
+      <div class="fase-durata">Da cliente + agenzia</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Logo</strong> in formato vettoriale (SVG, AI) o PNG ad alta risoluzione</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Palette colori</strong> — codici HEX/RGB esatti</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Pseudonimo/nome autore</strong> definito e approvato</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>PDF materiale didattico</strong> — almeno 2-3 documenti per i test iniziali</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Conferma piattaforme</strong> (Facebook e/o LinkedIn)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Account Facebook e LinkedIn personali</strong> attivi del cliente</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Verifica legale</strong> — compatibilità attività con ruolo dipendente pubblico (art. 53 D.Lgs. 165/2001)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Creare <strong>Facebook Business Account + Page</strong> del brand</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Creare <strong>LinkedIn Company Page</strong></div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Registrare <strong>Meta Developer App</strong> (developers.facebook.com)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Registrare <strong>LinkedIn Developer App</strong> (developer.linkedin.com)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Acquistare <strong>dominio</strong> (es. amministrativiinsanita.it)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Acquistare <strong>VPS</strong> (Hetzner o OVH ~€5/mese)</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 1 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 1</div>
+      <div class="fase-titolo">Setup Progetto</div>
+      <div class="fase-durata">~2 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Creare repository GitHub e struttura cartelle</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Setup ambiente Python (virtual environment + requirements.txt)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Configurare file <strong>.env</strong> con tutte le chiavi API</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Testare connessione a tutte le API (Claude, Meta, LinkedIn)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Setup logging e gestione errori base</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 2</div>
+      <div class="fase-titolo">Modulo Lettura PDF</div>
+      <div class="fase-durata">~2 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Implementare estrazione testo con <strong>PyMuPDF</strong></div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Testare con i PDF reali forniti dal cliente</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Gestire casi edge (PDF scansionati, protezioni, layout complessi)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Implementare chunking intelligente del testo</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 3 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 3</div>
+      <div class="fase-titolo">Motore AI Generazione Contenuti</div>
+      <div class="fase-durata">~3 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Integrare <strong>Claude API</strong> (Anthropic)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Definire prompt per ogni tipo di post (pillola, quiz, hook, ecc.)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Call calibrazione tono</strong> con il cliente (30 min) — approvare esempi output</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Testare qualità output su materiale reale</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Affinare prompt fino a risultato soddisfacente</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 4 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 4</div>
+      <div class="fase-titolo">Generatore Grafiche Brandizzate</div>
+      <div class="fase-durata">~3 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Ricevere e preparare asset brand (logo, palette)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Creare 2-3 template card con <strong>Pillow</strong></div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Implementare overlay testo automatico</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Adattare formati per Facebook (1:1) e LinkedIn (1.91:1)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Far approvare i template</strong> al cliente prima di procedere</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 5 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 5</div>
+      <div class="fase-titolo">Dashboard Approvazione Post</div>
+      <div class="fase-durata">~4 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Sviluppare app <strong>Flask</strong> con interfaccia web</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Implementare preview testo + grafica per ogni post</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Implementare azioni: approva / modifica / rifiuta</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Aggiungere autenticazione (login sicuro)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Test con il cliente — raccogliere feedback UI</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 6 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 6</div>
+      <div class="fase-titolo">Pubblicazione Social</div>
+      <div class="fase-durata">~4 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Integrare <strong>Facebook Graph API</strong> — pubblicazione su Page</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Integrare <strong>LinkedIn API</strong> — pubblicazione su Company Page</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Fallback Buffer se LinkedIn API non approvata</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Gestire refresh token e credenziali scadute</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Test pubblicazione reale con post di prova</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 7 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 7</div>
+      <div class="fase-titolo">Scheduler Pubblicazioni</div>
+      <div class="fase-durata">~2 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Implementare <strong>APScheduler</strong> per pubblicazioni programmate</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Configurare orari ottimali per ogni piattaforma</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Testare ciclo completo: approvazione → coda → pubblicazione automatica</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Notifica email al cliente dopo ogni pubblicazione</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 8 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 8</div>
+      <div class="fase-titolo">Landing Page</div>
+      <div class="fase-durata">~5 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Design wireframe — approvazione cliente prima di sviluppare</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Sviluppo HTML/CSS responsive e mobile-first</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Integrare form raccolta email con <strong>Brevo</strong></div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Setup GDPR — consenso, privacy policy, cookie banner</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Ottimizzazione velocità e SEO base</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Deploy su VPS con HTTPS (SSL)</div></div>
+    </div>
+  </div>
+
+  <!-- FASE 9 -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">FASE 9</div>
+      <div class="fase-titolo">Test, Deploy e Consegna</div>
+      <div class="fase-durata">~3 giorni</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Test end-to-end: PDF → generazione → approvazione → pubblicazione</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Deploy completo su VPS in produzione</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo"><strong>Call di formazione</strong> con il cliente (1 ora) — walkthrough del sistema</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Consegna manuale d'uso scritto</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Prima settimana di monitoraggio post-lancio</div></div>
+    </div>
+  </div>
+
+  <!-- DOPO IL LANCIO -->
+  <div class="fase">
+    <div class="fase-header">
+      <div class="fase-numero">ONGOING</div>
+      <div class="fase-titolo">Monitoraggio Mensile</div>
+      <div class="fase-durata">~€150/mese opzionale</div>
+    </div>
+    <div class="fase-body">
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Verifica API attive (token scaduti, aggiornamenti piattaforme)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Controllo metriche base (follower, engagement rate)</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Aggiustamenti prompt AI se qualità output cala</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Aggiornamenti in caso di modifiche alle API social</div></div>
+      <div class="task"><div class="checkbox"></div><div class="task-testo">Report mensile risultati al cliente</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-brand">⬡ <strong>THE QUBE</strong> · AI Agency Solutions</div>
+  <div class="footer-note">Documento riservato · Uso interno</div>
+</div>
+
+</body>
+</html>
